@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.way.hjbook.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.way.hjbook.entity.Book">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="test" jdbcType="BIGINT" property="test" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="book_author" jdbcType="VARCHAR" property="bookAuthor" />
+    <result column="chapter_num" jdbcType="INTEGER" property="chapterNum" />
+    <result column="book_type" jdbcType="VARCHAR" property="bookType" />
+    <result column="book_website" jdbcType="VARCHAR" property="bookWebsite" />
+    <result column="book_likes" jdbcType="VARCHAR" property="bookLikes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, test, book_name, book_author, chapter_num, book_type, book_website, book_likes
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from book
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.way.hjbook.entity.Book">
+    insert into book (id, test, book_name,
+      book_author, chapter_num, book_type, 
+      book_website, book_likes)
+    values (#{id,jdbcType=BIGINT}, #{test,jdbcType=BIGINT}, #{bookName,jdbcType=VARCHAR},
+      #{bookAuthor,jdbcType=VARCHAR}, #{chapterNum,jdbcType=INTEGER}, #{bookType,jdbcType=VARCHAR}, 
+      #{bookWebsite,jdbcType=VARCHAR}, #{bookLikes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.way.hjbook.entity.Book">
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="test != null">
+        test,
+      </if>
+      <if test="bookName != null">
+        book_name,
+      </if>
+      <if test="bookAuthor != null">
+        book_author,
+      </if>
+      <if test="chapterNum != null">
+        chapter_num,
+      </if>
+      <if test="bookType != null">
+        book_type,
+      </if>
+      <if test="bookWebsite != null">
+        book_website,
+      </if>
+      <if test="bookLikes != null">
+        book_likes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="test != null">
+        #{test,jdbcType=BIGINT},
+      </if>
+      <if test="bookName != null">
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null">
+        #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterNum != null">
+        #{chapterNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookType != null">
+        #{bookType,jdbcType=VARCHAR},
+      </if>
+      <if test="bookWebsite != null">
+        #{bookWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="bookLikes != null">
+        #{bookLikes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.way.hjbook.entity.Book">
+    update book
+    <set>
+      <if test="test != null">
+        test = #{test,jdbcType=BIGINT},
+      </if>
+      <if test="bookName != null">
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null">
+        book_author = #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterNum != null">
+        chapter_num = #{chapterNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookType != null">
+        book_type = #{bookType,jdbcType=VARCHAR},
+      </if>
+      <if test="bookWebsite != null">
+        book_website = #{bookWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="bookLikes != null">
+        book_likes = #{bookLikes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.way.hjbook.entity.Book">
+    update book
+    set test = #{test,jdbcType=BIGINT},
+      book_name = #{bookName,jdbcType=VARCHAR},
+      book_author = #{bookAuthor,jdbcType=VARCHAR},
+      chapter_num = #{chapterNum,jdbcType=INTEGER},
+      book_type = #{bookType,jdbcType=VARCHAR},
+      book_website = #{bookWebsite,jdbcType=VARCHAR},
+      book_likes = #{bookLikes,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectAllBook" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book
+  </select>
+
+</mapper>
