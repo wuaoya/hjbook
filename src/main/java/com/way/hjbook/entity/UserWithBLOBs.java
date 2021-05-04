@@ -1,5 +1,8 @@
 package com.way.hjbook.entity;
 
+/**
+ * mybatis 自动生成，不知道有啥子用
+ */
 public class UserWithBLOBs extends User {
     private byte[] sslCipher;
 

@@ -2,6 +2,9 @@ package com.way.hjbook.entity;
 
 import java.util.Date;
 
+/**
+ * 用户
+ */
 public class User {
     private Long id;
 

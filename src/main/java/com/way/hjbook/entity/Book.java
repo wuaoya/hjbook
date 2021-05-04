@@ -1,5 +1,8 @@
 package com.way.hjbook.entity;
 
+/**
+ * 书
+ */
 public class Book {
     private Long id;
 

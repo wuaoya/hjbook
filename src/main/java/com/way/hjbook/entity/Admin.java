@@ -1,5 +1,8 @@
 package com.way.hjbook.entity;
 
+/**
+ * 管理员
+ */
 public class Admin {
     private Integer id;
 

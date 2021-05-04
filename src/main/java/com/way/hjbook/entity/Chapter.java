@@ -2,6 +2,9 @@ package com.way.hjbook.entity;
 
 import java.util.Date;
 
+/**
+ * 章节
+ */
 public class Chapter {
     private Long id;
 
