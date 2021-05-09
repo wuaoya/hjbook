@@ -20,6 +20,8 @@ public class Book {
 
     private String bookLikes;
 
+    private String description;
+
     public Long getId() {
         return id;
     }
@@ -82,5 +84,13 @@ public class Book {
 
     public void setBookLikes(String bookLikes) {
         this.bookLikes = bookLikes == null ? null : bookLikes.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

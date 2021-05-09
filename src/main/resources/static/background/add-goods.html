@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="css/pintuer.css">
+<link rel="stylesheet" href="css/admin.css">
+<script src="js/jquery.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/pintuer.js"></script>
+</head>
+<body onload="addPnum()">
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder">新增书籍</strong></div>
+<div class="panel admin-panel margin-top" id="add">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>添加信息</strong></div>
+  <div class="body-content">
+    <div  class="form-x" >
+        <!--<div class="form-group">-->
+            <!--<div class="label">-->
+                <!--<label>商品编号：</label>-->
+            <!--</div>-->
+            <!--<div class="field">-->
+                <!--<input type="text" class="input w50" id="gNum" name="gNum" data-validate="required:请填写商品编号"  />-->
+                <!--<div class="tips"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<div class="label">-->
+                <!--<label>产品编号：</label>-->
+            <!--</div>-->
+            <!--<div class="field">-->
+                <!--&lt;!&ndash;<input type="text" class="input w50" id="pNum" name="pName" data-validate="required:请填写产品编号"  />&ndash;&gt;-->
+                <!--<select id="pNum" name="gType" class="input w50">-->
+                    <!--&lt;!&ndash;<option value="">请选择</option>-->
+                    <!--<option value="有机米">有机米</option>-->
+                    <!--<option value="富硒米">富硒米</option>&ndash;&gt;-->
+                <!--</select>-->
+                <!--<div class="tips"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+      <div class="form-group">
+        <div class="label">
+          <label>书籍名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="bookName" name="bookName" data-validate="required:请填写书籍名称"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+
+        <div class="form-group">
+            <div class="label">
+                <label>作者：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" id="bookAuthor" name="bookAuthor" data-validate="required:请填写作者"  />
+                <div class="tips"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label">
+                <label>作品类型：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" id="bookWebsite" name="bookWebsite" data-validate="required:请填写发布网站"  />
+                <div class="tips"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label">
+                <label>发布网站：</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" id="bookType" name="bookType" data-validate="required:请填写作品类型"  />
+                <div class="tips"></div>
+            </div>
+        </div>
+
+        <!--<div class="form-group">-->
+            <!--<div class="label">-->
+                <!--<label>图片：</label>-->
+            <!--</div>-->
+            <!--<div class="field">-->
+                <!--<input type="file" id="gImg" name="gImg" class="button bg-blue margin-left"  value="+ 浏览上传"  style="float:left; width: 105px;"/>-->
+                <!--<div class="tipss">图片尺寸：1920*500</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <div class="label">
+                <label>简介：</label>
+            </div>
+            <div class="field">
+                <textarea type="text" id="description" class="input" name="description" style="height:80px;" value=""></textarea>
+                <div class="tips"></div>
+            </div>
+        </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit" id="goodsSub"> 提交</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+<script>
+    var path = "http://127.0.0.1:8080";
+    $('#goodsSub').click(function () {
+        var postData ={
+            "bookName":$('#bookName').val(),
+            "bookAuthor":$('#bookAuthor').val(),
+            "bookType":$('#bookType').val(),
+            "bookWebsite":$('#bookWebsite').val(),
+            "description":$('#description').val()
+
+        }
+        $.ajax({
+            url: path+"/book/insertBook",
+            type: "POST",
+            data: JSON.stringify(postData),
+            contentType: "application/json",
+            dataType:"json",
+            beforeSend:function () {
+                // alert("我已准备好");
+            },
+            success:function (data) {
+                if(data.code == 200){
+                    window.location.href = path +"/background/goods-operation.html";
+                }
+            },
+            error:function () {
+                alert("新增书籍失败！");
+            }
+
+        });
+    });
+
+    function addPnum() {
+        $.get(
+            path+"/BgGoods/addPnum",
+            function (data) {
+                $.each(JSON.parse(data),function(i,obj) {
+                    $("#pNum").append('<option value="' + obj.pNum + '">' + obj.pNum + '</option>');
+                });
+            });
+    }
+</script>
+</html>

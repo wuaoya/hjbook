@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <!--<script src="js/jquery.js"></script>-->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script type="text/javascript">
+        var currentPage=1;
+        // var path = "/" + location.pathname.split("/")[1];
+        var path = "http://127.0.0.1:8080";
+        function listgoods() {
+            $.get(
+                path+"/book/selectAllBook",
+                {"currentPage":currentPage},
+                function (data) {
+                    console.log(data.data);
+                    if(data.data.length < 5 ){
+                        addAtt();
+                    }else{
+                        removeAtt();
+                    }
+                    remove();
+                    ad(data.data);
+                }
+            );
+        }
+
+        function ad(data) {
+            $.each(data,function(i,obj){
+                    $("#tt").append(
+                        '<tr>'+
+                        '<td>'+obj.id+'</td>'+
+                        // '<td width="10%"><img src='+obj.gImg+' alt="商品图片" width="70" height="50" /></td>'+
+                        '<td>'+obj.bookName+'</td>'+
+                        '<td>'+obj.bookAuthor+'</td>'+
+                        '<td>'+obj.chapterNum+'</td>'+
+                        '<td>'+obj.bookType+'</td>'+
+                        '<td>'+obj.bookWebsite+'</td>'+
+                        '<td>'+obj.bookLikes+'</td>'+
+                        '<td>'+obj.description+'</td>'+
+                            '<td>'+'<div>' +
+                        '<a class="button border-red" href="javascript:void(0)" onclick="deleteBook('+obj.id +')">'+
+                        '<span class="icon-trash-o"></span>删除</a>'+
+                        '</div>'+
+                        '</td>'+
+
+                        '<td>'+'<div>' +
+                        '<a class="button border-red" href="javascript:void(0)" onclick="editBook('+obj.id +')">'+
+                        '<span class="icon-trash-o"></span>修改</a>'+
+                        '</div>'+
+                        '</td>'+
+                        '</tr>');
+
+            });
+        }
+
+        //删除当前已经存在的元素
+        function remove(){
+            var tb=document.getElementsByClassName("tt")[0];
+            var leng=tb.rows.length;
+            for (var i= 0; i <leng;i++) {
+                tb.deleteRow(0);
+            }
+        }
+        //下一页
+        function nextPage(){
+            //让当前页数+1；
+            currentPage++;
+            //请求网络
+            listgoods();
+        }
+
+        function previousPage(){
+            //1判断currentPage==1;
+            if(currentPage==1)return;
+            //currentPage-1;
+            currentPage--;
+            //网络请求
+            listgoods();
+        }
+        //添加
+        function addAtt(){
+            var btn=document.getElementsByClassName("next")[0];
+            btn.setAttribute("disabled", "disabled");
+        }
+        //移除
+        function removeAtt(){
+            var btn=document.getElementsByClassName("next")[0];
+            btn.removeAttribute("disabled");
+        }
+        
+        function deleteBook(id) {
+            $.ajax({
+                type: 'DELETE',
+                url:  path + '/book/deleteBookById',
+                data: {_method:"DELETE",id: id},
+                success: function(data){
+                    if(data.code == 200){
+                        window.location.href = path + "/background/goods-operation.html";
+                    }else {
+                        alert("删除失败");
+                    }
+                },
+                error: function(){
+                    alert(alert("删除失败"));
+                }
+            });
+
+        }
+
+    </script>
+</head>
+<body onload="listgoods()">
+<div id="listform">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">书籍管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search" style="padding-left:10px;">
+                <li> <a class="button border-main icon-plus-square-o" href="add-goods.html">新增书籍</a> </li>
+
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <!--"id": 14,-->
+                <!--"test": null,-->
+                <!--"bookName": "2",-->
+                <!--"bookAuthor": "2",-->
+                <!--"chapterNum": null,-->
+                <!--"bookType": null,-->
+                <!--"bookWebsite": "2",-->
+                <!--"bookLikes": null,-->
+                <!--"description": "2"-->
+                <th width="5%">书籍编号</th>
+                <!--<th width="15%">书籍图片</th>-->
+                <!--<th width="5%">备用编号</th>-->
+                <th width="10%">书名</th>
+                <th width="5%">作者</th>
+                <th width="5%">章节数</th>
+                <th width="5%">类型</th>
+                <th width="5%">发布网站</th>
+                <th width="5%">点赞数</th>
+                <th width="15%">简介</th>
+                <th width="15%">操作</th>
+            </tr>
+            <tbody name="list" class="tt" id="tt">
+
+            </tbody>
+            <tr>
+                <td colspan="8"><div class="pagelist"> <button class="previous" onclick="previousPage()">上一页</button>
+                    <button class="next" onclick="nextPage()" style="float: right;">下一页</button></div></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

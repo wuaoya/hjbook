@@ -10,9 +10,11 @@
     <result column="book_type" jdbcType="VARCHAR" property="bookType" />
     <result column="book_website" jdbcType="VARCHAR" property="bookWebsite" />
     <result column="book_likes" jdbcType="VARCHAR" property="bookLikes" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+
   </resultMap>
   <sql id="Base_Column_List">
-    id, test, book_name, book_author, chapter_num, book_type, book_website, book_likes
+    id, test, book_name, book_author, chapter_num, book_type, book_website, book_likes, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -27,10 +29,10 @@
   <insert id="insert" parameterType="com.way.hjbook.entity.Book">
     insert into book (id, test, book_name,
       book_author, chapter_num, book_type, 
-      book_website, book_likes)
+      book_website, book_likes, description)
     values (#{id,jdbcType=BIGINT}, #{test,jdbcType=BIGINT}, #{bookName,jdbcType=VARCHAR},
       #{bookAuthor,jdbcType=VARCHAR}, #{chapterNum,jdbcType=INTEGER}, #{bookType,jdbcType=VARCHAR}, 
-      #{bookWebsite,jdbcType=VARCHAR}, #{bookLikes,jdbcType=VARCHAR})
+      #{bookWebsite,jdbcType=VARCHAR}, #{bookLikes,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.way.hjbook.entity.Book">
     insert into book
@@ -59,6 +61,9 @@
       <if test="bookLikes != null">
         book_likes,
       </if>
+      <if test="description != null">
+        description,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -84,6 +89,9 @@
       </if>
       <if test="bookLikes != null">
         #{bookLikes,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -111,6 +119,9 @@
       <if test="bookLikes != null">
         book_likes = #{bookLikes,jdbcType=VARCHAR},
       </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -122,7 +133,8 @@
       chapter_num = #{chapterNum,jdbcType=INTEGER},
       book_type = #{bookType,jdbcType=VARCHAR},
       book_website = #{bookWebsite,jdbcType=VARCHAR},
-      book_likes = #{bookLikes,jdbcType=VARCHAR}
+      book_likes = #{bookLikes,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
