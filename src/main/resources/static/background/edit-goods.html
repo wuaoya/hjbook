@@ -12,7 +12,7 @@
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/pintuer.js"></script>
 </head>
-<body>
+<body onload="getEditInfo()">
 <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder">编辑书籍</strong></div>
     <div class="panel admin-panel margin-top" id="add">
@@ -93,8 +93,36 @@
 </div>
 </body>
 <script>
-    var path = "/" + location.pathname.split("/")[1];
+    function editBook(info) {
+
+            $('#id').val(info.id),
+            $('#bookName').val(info.bookName),
+            $('#bookAuthor').val(info.bookAuthor),
+            $('#bookType').val(info.bookType),
+            $('#bookWebsite').val(info.bookWebsite),
+            $('#description').val(info.description)
+
+    }
+    function getEditInfo() {
+        var url = location.search; //获取url中"?"符后的字串
+        var editBookId = url.substr(1).split("=")[1];
+        var path = "http://127.0.0.1:8080";
+        $.get(
+            path+"/book/selectBookById",
+            {"id":editBookId},
+            function (data) {
+               if(data.code == 200){
+                   var info = data.data;
+                   editBook(info);
+               }
+            }
+        );
+
+    }
+
+
     $('#goodsSub1').click(function () {
+        var path = "http://127.0.0.1:8080";
         var myform = {
           "id": $('#id').val(),
           "bookName": $('#bookName').val(),
@@ -105,12 +133,11 @@
         };
 
         $.ajax({
-            url: path+"/BgGoods/updateGoods",
+            url: path+"/book/modifyBook",
             type: "PUT",
-            data: myform,
-            cache:false,
-            processData:false,
-            contentType:false,
+            data: JSON.stringify(myform),
+            contentType: "application/json",
+            dataType:"json",
             beforeSend:function () {
             },
             success:function (data) {
@@ -121,6 +148,9 @@
             error:function () {
                 alert("编辑书籍失败！");
             }
+
+        });
+        $.put({
 
         });
     });

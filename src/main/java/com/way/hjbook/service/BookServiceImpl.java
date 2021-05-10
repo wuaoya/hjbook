@@ -77,4 +77,19 @@ public class BookServiceImpl  implements BookService{
         }
         return result;
     }
+
+    @Override
+    public Result selectBookById(Long id) {
+        Result result = new Result();
+        try {
+            Book book = bookMapper.selectByPrimaryKey(id);
+            if(StringUtils.isEmpty(book)){
+                return result.errorMassage(BOOK_SELECT_ERROR);
+            }
+            return result.successMassage(SUCCESS,book);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 }

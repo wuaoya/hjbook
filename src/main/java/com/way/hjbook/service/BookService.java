@@ -16,4 +16,6 @@ public interface BookService {
     Result modifyBook(Book book);
 
     Result deleteBookById(Long id);
+
+    Result selectBookById(Long id);
 }

@@ -36,4 +36,9 @@ public class BookController {
     public Result deleteBookById(@RequestParam("id") Long id){
         return bookService.deleteBookById(id);
     }
+
+    @GetMapping("/selectBookById")
+    public Result selectBookById(@RequestParam("id") Long id){
+        return bookService.selectBookById(id);
+    }
 }
