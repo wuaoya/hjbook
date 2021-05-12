@@ -17,60 +17,30 @@
         #second{
             margin-left: 200px;
         }
-        #third{
-            margin-left: 50px;
-            /*margin-top: 50px;*/
-            height: 30px;
-        }
     </style>
 </head>
-<body onload="getList()">
-<form method="post"  id="listform"><!--action=""-->
+<body onload="getBookId()">
+<form>
     <div class="panel admin-panel">
-        <div class="panel-head"><strong class="icon-reorder">商品管理</strong></div>
+        <div class="panel-head"><strong class="icon-reorder">章节管理</strong></div>
         <div class="padding border-bottom">
-            <ul class="search" style="padding-left:10px;">
-                <li> <a class="button border-main icon-plus-square-o" href="add-product.html">新增产品</a> </li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <div id="second">
-                    <select name="s_istop" id="tryeat" onclick="getList()" style="width:76px;margin-left: 10px; height:30px;display:inline-block">
-                        <option value="">产品名称</option>
-                        <option value="信阳有机米">信阳有机米</option>
-                        <option value="淮滨原生态米">淮滨原生态米</option>
-                        <option value="罗山黑米">罗山黑米</option>
-                        <option value="光山香米">光山香米</option>
+                    <select id="test" onclick="getList()" style="width:150px;margin-left: 10px; height:30px;display:inline-block">
+                        <option>请选择书籍名称</option>
                     </select>
-                    &nbsp;&nbsp;&nbsp;
-                    <select name="s_istop" id="style" onclick="getList()"  style="width:76px;margin-left: 10px; height:30px;display:inline-block">
-                        <option value="">产品分类</option>
-                        <option value="有机米">有机米</option>
-                        <option value="含硒米">含硒米</option>
-                    </select>
-                     <!-- <button onclick="getList()" id="third">确定</button>-->
               </div>
                 </li>
-            </ul>
         </div>
         <table class="table table-hover text-center">
             <tr>
-                <th width="20%">序号</th>
-                <th width="20%">产品分类</th>
-                <th width="20%">产品编号</th>
-                <th width="20%">产品名称</th>
+                <th width="20%">章节序号</th>
+                <th width="20%">章节名称</th>
+                <th width="20%">章节内容</th>
+                <th width="10%">上传时间</th>
                 <th width="20%">操作</th>
             </tr>
-            <tbody name="list" class="tt">
-           <!-- <tr>
-                <td><input type="text" name="sort[1]" value="1" style="width:50px; text-align:center; border:1px solid #ddd; padding:7px 0;" /></td>
-                <td width="10%"><img src="images/11.jpg" alt="" width="70" height="50" /></td>
-                <td>这是一套MUI后台精美管理系统，感谢您的支持</td>
-                <td>2016-07-01</td>
-                <td><div class="button-group"> <a class="button border-main"> &lt;!&ndash;href="edit-product.html&ndash;&gt;"<span class="icon-edit"></span>编辑</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span>禁用</a> </div></td>
-            </tr>-->
+            <tbody name="list" class="tt" id="tt">
             </tbody>
-           <!-- <tr>
-                <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <a href="">下一页</a><a href="">尾页</a> </div></td>
-            </tr>-->
         </table>
     </div>
 
@@ -79,53 +49,34 @@
     <button class="previous" onclick="previousPage()">上一页</button>
     <button class="next" onclick="nextPage()">下一页</button>
 </div>
-<script type="text/javascript">
-    //搜索
-    function changesearch(){
-    }
-    //单个删除
-    function del(id,mid,iscid){
-        if(confirm("您确定要删除吗?")){
-
-        }
-    }
-</script>
-
+<script type="text/javascript"></script>
 <script>
     //声明一个变量 表示当前页数
     var currentPage=1;
-    //var order="";//搜索姓名
-
-    //获取当前表格对象
-    var tb=document.getElementsByClassName("tt")[0];
-
+    var path = "http://127.0.0.1:8080";
+    function getBookId(){
+        $.get(
+            path+"/book/selectAllBook",
+            function (data) {
+                var book = data.data;
+                if(data.code == 200){
+                    $.each(book,function(i,obj){
+                        $("#test").append(
+                            '<option value='+
+                            obj.id +
+                            '>'+obj.bookName+'</option>'
+                        );
+                    });
+                }
+            }
+        );
+        getList();
+    }
     //删除当前已经存在的元素
     function remove(){
         var leng=tb.rows.length;
         for (var i= 0; i <leng;i++) {
             tb.deleteRow(0);
-        }
-    }
-    //向table添加元素
-    function addElement(obj) {
-        for (var i = 0; i < obj.length; i++) {
-            $(".tt").append(
-                '<tr>' +
-                '<td>' + obj[i].pId + '</td>' +
-                '<td>' + obj[i].pStyle + '</td>' +
-                '<td>' + obj[i].pNum + '</td>' +
-                '<td>' + obj[i].pName + '</td>' +
-                '<td>' +'<a href="edit-product.html?pNum='+obj[i].pNum+'" class= "button  border-main"><span class="icon-edit"></span>修改</a>' +
-                '<a class="button border-red" onclick="setValues('+obj[i].pId+')"> <!--onclick="setValues("+obj[i].pId+")"--><span class="icon-edit"></span>删除</a>'+ '</td>' +
-                /*'<td>' + obj[i].name + '</td>' +*/
-                '</tr>'     /*href="bgproduct/delete?pId='+obj[i].pId+'"*/
-            );
-        }
-    /*<a class='button border-main' onclick='setValues("+index+")'><span class='icon-edit'></span>编辑</a>*/
-        if(obj==null){
-            $(".tt").append( "<tr style='text-align: center'>"
-                +"<td colspan='6'><font color='#cd0a0a'>"+ 暂无记录 + "</font></td>"
-                +"</tr>");
         }
     }
     //删除成功
@@ -155,20 +106,41 @@
 
     //获取当前信息
     function getList(){
-        var path = "/" + location.pathname.split("/")[1];
-        $(function(){
-            $.get(path+"/bgproduct/list",{"page":currentPage ,"pName":$("#tryeat").val(),"pStyle":$("#style").val()},function(data){
-                var len=data.length;
-                if(len<3){
-                    addAtt();
-                }else {
-                    removeAtt();
-                }
-                remove();
-                addElement(data);
-                //alert(data[0].name);
+
+            $.get(path+"/chapter/selectChapter",
+                {"currentPage":currentPage},
+                function(data){
+                ad(data.data);
             },"json");
-        })
+
+    }
+
+    function ad(data) {
+        $.each(data,function(i,obj){
+            $("#tt").append(
+                '<tr>'+
+                '<td>'+obj.id+'</td>'+
+                // '<td width="10%"><img src='+obj.gImg+' alt="商品图片" width="70" height="50" /></td>'+
+                // '<td>'+obj.bookName+'</td>'+
+                '<td>'+obj.chapterName+'</td>'+
+                // '<td>'+ (obj.chapterContent.split("<") +1 ).substring(0,10)+'</td>'+
+                '<td>'+ obj.chapterContent.match(/[\u4e00-\u9fa5]/g).join("").substring(0,10)+'</td>'+
+                '<td>'+obj.issueTime+'</td>'+
+                '<td>'+'<div>' +
+                '<a class="button border-red" href="javascript:void(0)" onclick="deleteBook('+obj.id +')">'+
+                '<span class="icon-trash-o"></span>删除</a>'+
+                '</div>'+
+                '</td>'+
+
+                '<td>'+'<div>' +
+                '<a class="button border-red" href="javascript:void(0)" onclick="editBook('+obj.id +')">'+
+                '<span class="icon-trash-o"></span>修改</a>'+
+                '</div>'+
+                '</td>'+
+
+                '</tr>');
+
+        });
     }
 
     //下一页

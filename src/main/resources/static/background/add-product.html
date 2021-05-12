@@ -8,111 +8,63 @@
     <title></title>
     <link rel="stylesheet" href="css/pintuer.css">
     <link rel="stylesheet" href="css/admin.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/pintuer.js"></script>
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script>
-        function add(){
-            var path = "/" + location.pathname.split("/")[1];
-          $.get(path+"/bgproduct/product", {
-                  "pStyle": $("#style").val(),
-                  "pName": $("#name").val(),
-                  "pUnit": $("#select").val(),
-                  "pNum": $("#num").val()
-              },
-              function(data){
-                  if(data=="true") {
-                      alert("添加成功");
-                      window.location.href = "list-product.html";
-                  }
-              },"json");
-        }
-    </script>
+
 </head>
-<body>
+<body onload = getBookId()>
 <div class="panel admin-panel">
-    <div class="panel-head"><strong class="icon-reorder">新增产品</strong></div>
+    <div class="panel-head"><strong class="icon-reorder">新增章节</strong></div>
     <div class="panel admin-panel margin-top" id="add">
-        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>添加信息</strong></div>
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>添加章节信息</strong></div>
         <div class="body-content">
-            <form method="post" class="form-x" action="">
+            <form class="form-x">
+                <!--<div class="form-group">-->
+                    <!--<div class="label">-->
+                        <!--<label>书籍编号：</label>-->
+                    <!--</div>-->
+                    <!--<div class="field">-->
+                        <!--<input type="text" class="input w50" name="test" id="test" data-validate="required:请填写书籍编号"  />-->
+                        <!--<div class="tips"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="form-group">
                     <div class="label">
-                        <label>产品分类：</label>
+                        <label>书籍编号：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input w50" name="url" id="style" data-validate="required:请填写产品分类"  />
-                        <div class="tips"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="label">
-                        <label>产品名称：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input w50" name="url" id="name" data-validate="required:请填写产品名称"  />
-                        <div class="tips"></div>
-                    </div>
-                </div>
-               <!-- <div class="form-group">
-                    <div class="label">
-                        <label>产品重量：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input w50" name="url" id="weight" data-validate="required:请填写产品名称"  />
-                        <div class="tips"></div>
-                    </div>
-                </div>-->
-                <div class="form-group">
-                    <div class="label">
-                        <label>产品编号：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input w50" name="url" id="num" data-validate="required:请填写产品名称"  />
-                        <div class="tips"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="label">
-                        <label>产品单位：</label>
-                    </div>
-                    <div class="field">
-                        <select name="cid" class="input w50" id="select">
-                            <option value="">请选择</option>
-                            <option value="克">克</option>
-                            <option value="袋">袋</option>
-                            <option value="亩">亩</option>
-                            <option value="斤">斤</option>
+                        <select id="test" name="test" class="input w50" >
+                            <option id="test" value="">请选择书籍</option>
                         </select>
                         <div class="tips"></div>
                     </div>
                 </div>
-                  <!--  <div class="form-group">
-                        <div class="label">
-                            <label>包装类型：</label>
-                        </div>
-                        <div class="field">
-                            <select name="cid" class="input w50" id="package">
-                                <option value="">请选择</option>
-                                <option value="精包装">精包装</option>
-                                <option value="真空包装">真空包装</option>
-                            </select>
-                            <div class="tips"></div>
-                        </div>
-                    </div>-->
-                   <!-- <div class="form-group">
-                        <div class="label">
-                            <label>是否试吃：</label>
-                        </div>
-                        <div class="field">
-                            <select name="cid" class="input w50" id="tyeat">
-                                <option value="">请选择</option>
-                                <option value="是">是</option>
-                                <option value="否">否</option>
-                            </select>
-                            <div class="tips"></div>
-                        </div>
-                    </div>-->
+
+                <div class="form-group">
+                    <div class="label">
+                        <label>章节名称：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" name="chapterName" id="chapterName" data-validate="required:请填写章节名称"  />
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>章节内容：</label>
+                    </div>
+                </div>
+                <div contenteditable="true"  style="padding: 0px;">
+                    <table  style="width: 90%;">
+                    <tbody>
+                    <tr>
+                        <td style="background:url(./images/a_01.jpg) no-repeat #f6ffec; min-height:550px; padding: 100px 55px 200px; ">
+                            <div id="chapterContent" class="chapterContent"><br></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+
+
                 <div class="form-group">
                     <div class="label">
                         <label></label>
@@ -126,4 +78,54 @@
     </div>
 </div>
 </body>
+<script src="js/jquery.js"></script>
+<script src="js/pintuer.js"></script>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var path = "http://127.0.0.1:8080";
+    function add(){
+        var options=$("#test option:selected").val();
+        var postData ={
+            "test":options,
+            "chapterName":$('#chapterName').val(),
+            "chapterContent":$('#chapterContent').html()
+        };
+            $.ajax({
+                url: path+"/chapter/upload",
+                type: "POST",
+                data: JSON.stringify(postData),
+                contentType: "application/json",
+                dataType:"json",
+                beforeSend:function () {
+                },
+                success:function (data) {
+                    if(data.code == 200){
+                        window.location.href = path +"/background/goods-operation.html";
+                    }
+                },
+                error:function () {
+                    alert("新增章节失败！");
+                }
+
+            });
+    }
+    function getBookId(){
+        $.get(
+            path+"/book/selectAllBook",
+            function (data) {
+                var book = data.data;
+                if(data.code == 200){
+                    $.each(book,function(i,obj){
+                        $("#test").append(
+                            '<option value='+
+                            obj.id +
+                            '>'+obj.bookName+'</option>'
+                           );
+                    });
+                }
+            }
+        );
+    }
+
+</script>
 </html>

@@ -24,4 +24,6 @@ public interface ChapterMapper {
     List<Chapter> selectByBookId(Long test);
 
     int selectCountByBookId(Long test);
+
+    List<Chapter> selectChapter();
 }

@@ -42,4 +42,10 @@ public class ChapterController {
         return chapterService.deleteChapterById(chapterId);
     }
 
+    @GetMapping("/selectChapter")
+    public Result selectChapter(){
+        return chapterService.selectChapter();
+    }
+
+
 }

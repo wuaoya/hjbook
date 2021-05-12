@@ -102,4 +102,19 @@ public class ChapterServiceImpl implements ChapterService{
         }
         return result;
     }
+
+    @Override
+    public Result selectChapter() {
+        Result result = new Result();
+        try {
+            List<Chapter> chapterList = chapterMapper.selectChapter();
+            if(!StringUtils.isEmpty(chapterList)){
+                return result.successMassage(SUCCESS, chapterList);
+            }
+            return result.errorMassage(CHAPTER_SELECTALL_ERROR);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 }

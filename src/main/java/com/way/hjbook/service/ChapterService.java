@@ -46,5 +46,10 @@ public interface ChapterService {
      */
     Result deleteChapterById(Long chapterId);
 
+    /**
+     * @return
+     */
+    Result selectChapter();
+
 
 }

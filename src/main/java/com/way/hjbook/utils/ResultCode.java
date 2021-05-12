@@ -29,6 +29,8 @@ public enum ResultCode {
     CHAPTER_NOT_ERROR("4003", "该章节不存在"),
     CHAPTER_MODIFY_ERROR("4004", "修改章节失败"),
     CHAPTER_DELETE_ERROR("4005", "修改章节失败"),
+    CHAPTER_SELECTALL_ERROR("4006", "查询章节失败"),
+
 
     BOOK_SELECT_ERROR("5001", "查询书籍失败啊老铁！"),
     BOOK_MODIFY_ERROR("5002", "修改书籍失败！"),

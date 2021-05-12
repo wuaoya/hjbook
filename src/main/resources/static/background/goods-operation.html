@@ -20,7 +20,6 @@
                 path+"/book/selectAllBook",
                 {"currentPage":currentPage},
                 function (data) {
-                    console.log(data.data);
                     if(data.data.length < 5 ){
                         addAtt();
                     }else{
