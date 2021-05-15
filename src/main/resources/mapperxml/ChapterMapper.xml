@@ -107,7 +107,7 @@
 
   <select id="selectByBookId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select
-    <include refid="Base_Column_List" />
+    *
     from chapter
     where test = #{test,jdbcType=BIGINT}
   </select>

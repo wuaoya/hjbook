@@ -25,7 +25,7 @@
         <div class="panel-head"><strong class="icon-reorder">章节管理</strong></div>
         <div class="padding border-bottom">
                   <div id="second">
-                    <select id="test" onclick="getList()" style="width:150px;margin-left: 10px; height:30px;display:inline-block">
+                    <select id="test" onchange="selectChapterByBookId()" style="width:150px;margin-left: 10px; height:30px;display:inline-block">
                         <option>请选择书籍名称</option>
                     </select>
               </div>
@@ -33,7 +33,8 @@
         </div>
         <table class="table table-hover text-center">
             <tr>
-                <th width="20%">章节序号</th>
+                <th width="5%">序号</th>
+                <th width="5%">章节序号</th>
                 <th width="20%">章节名称</th>
                 <th width="20%">章节内容</th>
                 <th width="10%">上传时间</th>
@@ -51,7 +52,6 @@
 </div>
 <script type="text/javascript"></script>
 <script>
-    //声明一个变量 表示当前页数
     var currentPage=1;
     var path = "http://127.0.0.1:8080";
     function getBookId(){
@@ -72,36 +72,29 @@
         );
         getList();
     }
-    //删除当前已经存在的元素
-    function remove(){
-        var leng=tb.rows.length;
-        for (var i= 0; i <leng;i++) {
-            tb.deleteRow(0);
-        }
-    }
-    //删除成功
-   function setValues(i) {
-        //alert(i);
-        var path = "/" + location.pathname.split("/")[1];
-        $(function(){
-            $.get(path+"/bgproduct/delete",{"pId":i},function(data){
-                if(data=="true"){
-                    alert("删除成功");
-                     window.location.href="list-product.html";
-                }
-            },"json");
-        })
+
+    //删除
+   function deleteChapter(chapterId) {
+       $.ajax({
+           type: 'DELETE',
+           url:  path + '/chapter/deleteById',
+           data: {_method:"DELETE",chapterId: chapterId},
+           success: function(data){
+               if(data.code == 200){
+                   window.location.href = path + "/background/list-product.html";
+               }else {
+                   alert("删除失败");
+               }
+           },
+           error: function(){
+               alert(alert("删除失败"));
+           }
+       });
     }
 
-    //添加
-    function addAtt(){
-        var btn=document.getElementsByClassName("next")[0];
-        btn.setAttribute("disabled", "disabled");
-    }
-    //移除
-    function removeAtt(){
-        var btn=document.getElementsByClassName("next")[0];
-        btn.removeAttribute("disabled");
+    function editChapter(id) {
+        window.localStorage.setItem("editChapter", id);
+        window.location.href = path + "/background/edit-goods.html?editBookId=" + id;
     }
 
     //获取当前信息
@@ -112,28 +105,47 @@
                 function(data){
                 ad(data.data);
             },"json");
+        // $.get(
+        //     path+"/chapter/selectByBookId",
+        //     {"test":"4"},
+        //     function (data) {
+        //         ad(data.data);
+        //     },"json");
+    }
+    // 根据选择查询
+    function selectChapterByBookId() {
+        $("#tt").empty();
+        var BookId = $("#test option:selected").val();
+        $.get(
+            path+"/chapter/selectByBookId",
+            {"test":BookId},
+            function (data) {
+                    ad(data.data);
+            },"json");
 
     }
 
+    // 渲染
     function ad(data) {
         $.each(data,function(i,obj){
+            var id = i+1;
             $("#tt").append(
                 '<tr>'+
+                '<td>'+ id +'</td>'+
                 '<td>'+obj.id+'</td>'+
                 // '<td width="10%"><img src='+obj.gImg+' alt="商品图片" width="70" height="50" /></td>'+
                 // '<td>'+obj.bookName+'</td>'+
                 '<td>'+obj.chapterName+'</td>'+
-                // '<td>'+ (obj.chapterContent.split("<") +1 ).substring(0,10)+'</td>'+
-                '<td>'+ obj.chapterContent.match(/[\u4e00-\u9fa5]/g).join("").substring(0,10)+'</td>'+
-                '<td>'+obj.issueTime+'</td>'+
+                '<td>'+ obj.chapterContent.match(/[\u4e00-\u9fa5]/g).join("").substring(0,10)+'...</td>'+
+                '<td>'+(obj.issueTime.toString().substring(0,obj.issueTime.toString().length-9)).replace("T", " ")+'</td>'+
                 '<td>'+'<div>' +
-                '<a class="button border-red" href="javascript:void(0)" onclick="deleteBook('+obj.id +')">'+
+                '<a class="button border-red" href="javascript:void(0)" onclick="deleteChapter('+obj.id +')">'+
                 '<span class="icon-trash-o"></span>删除</a>'+
                 '</div>'+
                 '</td>'+
 
                 '<td>'+'<div>' +
-                '<a class="button border-red" href="javascript:void(0)" onclick="editBook('+obj.id +')">'+
+                '<a class="button border-red" href="javascript:void(0)" onclick="editChapter('+obj.id +')">'+
                 '<span class="icon-trash-o"></span>修改</a>'+
                 '</div>'+
                 '</td>'+
@@ -142,6 +154,24 @@
 
         });
     }
+
+    //删除当前已经存在的元素
+    // function remove(){
+    //     var leng=tb.rows.length;
+    //     for (var i= 0; i <leng;i++) {
+    //         tb.deleteRow(0);
+    //     }
+    // }
+    //添加
+    // function addAtt(){
+    //     var btn=document.getElementsByClassName("next")[0];
+    //     btn.setAttribute("disabled", "disabled");
+    // }
+    //移除
+    // function removeAtt(){
+    //     var btn=document.getElementsByClassName("next")[0];
+    //     btn.removeAttribute("disabled");
+    // }
 
     //下一页
     function nextPage(){
@@ -161,6 +191,5 @@
     }
 
 </script>
-
 </body>
 </html>
