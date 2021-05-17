@@ -54,6 +54,7 @@
 <script>
     var currentPage=1;
     var path = "http://127.0.0.1:8080";
+
     function getBookId(){
         $.get(
             path+"/book/selectAllBook",
@@ -93,8 +94,7 @@
     }
 
     function editChapter(id) {
-        window.localStorage.setItem("editChapter", id);
-        window.location.href = path + "/background/edit-goods.html?editBookId=" + id;
+        window.location.href = path + "/background/edit-product.html?editBookId=" + id;
     }
 
     //获取当前信息

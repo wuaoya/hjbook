@@ -22,7 +22,7 @@ public class ChapterController {
         return chapterService.upload(chapter);
     }
 
-    @PutMapping("/modify")
+    @PostMapping("/modify")
     public Result modifyChapter(@RequestBody Chapter chapter){
         return chapterService.modifyChapter(chapter);
     }

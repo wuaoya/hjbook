@@ -13,30 +13,83 @@
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
         var path = "http://127.0.0.1:8080";
-        function getEditInfo() {
-            var url = location.search; //获取url中"?"符后的字串
-            var editBookId = url.substr(1).split("=")[1];
-            var path = "http://127.0.0.1:8080";
+        //获取所有书籍来渲染列表
+        function getBookId(){
             $.get(
-                path+"/chapter/selectById",
-                {"id":editBookId},
+                path+"/book/selectAllBook",
                 function (data) {
+                    var book = data.data;
                     if(data.code == 200){
-                        var info = data.data;
-                        editBook(info);
+                        $.each(book,function(i,obj){
+                            $("#test").append(
+                                '<option value='+
+                                obj.id +
+                                '>'+obj.bookName+'</option>'
+                            );
+                        });
                     }
                 }
             );
         }
-        function edit(){
-
+        function getEditInfo() {
+            //获取章节信息
+            getBookId();
+            var url = location.search; //获取url中"?"符后的字串
+            var editChapterId = url.substr(1).split("=")[1];
+            $.get(
+                path+"/chapter/selectById",
+                {"chapterId":editChapterId},
+                function (data) {
+                    if(data.code == 200){
+                        var info = data.data;
+                        editChapter(info);
+                    }
+                }
+            );
         }
-    </script>
-    <script type="text/javascript">
+        //渲染全部数据
+        function editChapter(info){
+            $("#test").find("option[value = '"+info.test+"']").attr("selected","selected");
+            $('#chapterName').val(info.chapterName),
+            $('#chapterContent').html(info.chapterContent)
+        }
+
+        //修改数据
+        function edit() {
+            var url = location.search; //获取url中"?"符后的字串
+            var editChapterId = url.substr(1).split("=")[1];
+            var bookId = $("#test option:selected").val();
+                var myform = {
+                    "id": editChapterId,
+                    "test": bookId,
+                    "chapterName": $('#chapterName').val(),
+                    "chapterContent": $('#chapterContent').html()
+                };
+
+                $.ajax({
+                    url: path+"/chapter/modify",
+                    type: "POST",
+                    data: JSON.stringify(myform),
+                    contentType: "application/json",
+                    dataType:"json",
+                    beforeSend:function () {
+                    },
+                    success:function (data) {
+                        if(data.code == 200){
+                            window.location.href = path + "/background/list-product.html";
+                        }
+                    },
+                    error:function () {
+                        alert("编辑书籍失败！");
+                    }
+
+                });
+        }
 
 
     </script>
-<body onload="getEditInfo">
+
+<body onload="getEditInfo()">
 <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder">编辑章节</strong></div>
     <div class="panel admin-panel margin-top" id="add">

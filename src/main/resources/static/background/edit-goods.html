@@ -24,7 +24,7 @@
                         <label>书籍编号：</label>
                     </div>
                     <div class="field">
-                        <input type="text" id="id" class="input w50" name="id" data-validate="required:请填写商品编号"  />
+                        <input type="text" id="id" class="input w50" name="id" data-validate="required:请填写书籍编号"  />
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <label>书籍名称：</label>
                     </div>
                     <div class="field">
-                        <input type="text" id="bookName" class="input w50" name="bookName" data-validate="required:请填写商品名称"  />
+                        <input type="text" id="bookName" class="input w50" name="bookName" data-validate="required:请填写书籍名称"  />
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <label>作者：</label>
                     </div>
                     <div class="field">
-                        <input type="text" id="bookAuthor" class="input w50" name="bookAuthor" data-validate="required:请填写商品名称"  />
+                        <input type="text" id="bookAuthor" class="input w50" name="bookAuthor" data-validate="required:请填写作者"  />
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <label>作品类型：</label>
                     </div>
                     <div class="field">
-                        <input type="text" id="bookType" class="input w50" name="bookType" data-validate="required:请填写商品名称"  />
+                        <input type="text" id="bookType" class="input w50" name="bookType" data-validate="required:请填写作品类型"  />
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -147,9 +147,6 @@
             error:function () {
                 alert("编辑书籍失败！");
             }
-
-        });
-        $.put({
 
         });
     });

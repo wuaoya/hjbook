@@ -100,7 +100,9 @@
                 },
                 success:function (data) {
                     if(data.code == 200){
-                        window.location.href = path +"/background/goods-operation.html";
+                        window.location.href = path +"/background/list-product.html";
+                    }else {
+                        alert("新增章节失败！字数在2500字左右哦，太多就不行啦！");
                     }
                 },
                 error:function () {
