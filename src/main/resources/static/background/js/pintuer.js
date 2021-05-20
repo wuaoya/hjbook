@@ -14,7 +14,7 @@ $(function(){
 			catch(e){alert("加入收藏失败，请使用Ctrl+D进行添加");} 
 		}
 	});
-	$(".win-forward").click(function(){
+	$(".win-background").click(function(){
 		window.history.forward(1);
 	});
 	$(".win-back").click(function(){

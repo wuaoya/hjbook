@@ -11,10 +11,10 @@
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as anonymous module.
-    define(['jquery', 'ChineseDistricts'], factory);
+    define(['static/background/js/jquery', 'ChineseDistricts'], factory);
   } else if (typeof exports === 'object') {
     // Node / CommonJS
-    factory(require('jquery'), require('ChineseDistricts'));
+    factory(require('static/background/js/jquery'), require('ChineseDistricts'));
   } else {
     // Browser globals.
     factory(jQuery, ChineseDistricts);
