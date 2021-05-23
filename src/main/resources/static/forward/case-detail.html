@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>案例详情页——武汉拾艺信息科技有限公司</title>
+<title>玛雅腻腻的小站</title>
 
 <!--公共脚本-->
 <!--jquery-->
@@ -24,13 +24,12 @@
 <script type="text/javascript" src="js/case-detail.js"></script>
 </head>
 
-<body>
+<body onload="getInfo()">
 
 <!--案例导航-->
 <div class="container cf container_case_nav">
 	<div class="container container_1000 m_center of">
-    	<a href="index.html" class="f_left"><img src="images/logo/logo_case.png" width="100" height="50" alt="拾艺" title="武汉拾艺客" /></a>
-        
+        <p id = "bookName"  class="f_left" style="color: #0099FF; font-size: 30px;">玛雅腻腻</p>
         <ul class="nav_case f_right">
             <li>
                 <a href="index.html">首页</a>
@@ -39,58 +38,68 @@
                 <a href="service.html">产品服务</a>
             </li>
             <li>
-                <a href="case.html">案例展示</a>
+                <a href="case.html">个人作品</a>
             </li>
             <li>
-                <a href="about.html">关于我们</a>
+                <a href="about.html">关于我</a>
             </li>
             <li>
-                <a href="applay.html">在线申请</a>
+                <a href="applay.html">读者登陆注册</a>
             </li>
         </ul>
     </div>
 </div>
 
 <!--下一个上一个-->
-<div class="container cf container_next">
-	<div class="container container_1000 m_center cf">
+<!--<div class="container cf container_next">-->
+	<!--<div class="container container_1000 m_center cf">-->
 
-		<a href="case.html" class="next f_left liebiao">
-        	<span class="t1">案例列表</span>
-            <span class="t2">案例列表</span>
-        </a>
-        
-		<a href="#this" class="next f_right" id="js_next">
-        	<span class="t1">下一个</span>
-            <span class="t2">下一个</span>
-		</a>
-        <a href="#this" class="next f_right" id="js_last">
-        	<span class="t1">上一个</span>
-            <span class="t2">上一个</span>
-		</a>
-    </div>
-</div>
+		<!--<a href="case.html" class="next f_left liebiao">-->
+        	<!--<span class="t1">列表</span>-->
+            <!--<span class="t2">列表</span>-->
+        <!--</a>-->
+        <!---->
+		<!--<a href="#this" class="next f_right" id="js_next">-->
+        	<!--<span class="t1">下一个</span>-->
+            <!--<span class="t2">下一个</span>-->
+		<!--</a>-->
+        <!--<a href="#this" class="next f_right" id="js_last">-->
+        	<!--<span class="t1">上一个</span>-->
+            <!--<span class="t2">上一个</span>-->
+		<!--</a>-->
+    <!--</div>-->
+<!--</div>-->
 
 <!--案例展示-->
+
 <div class="container container_1000 m_center cf b_70">
-	
     <!-- case_edit为编辑器输入的内容 -->
     <div class="f_left case_left case_edit">
-    	<div class="container_case">
-	    	<img src="images/eq/eq_caseimg.png" width="710" />
+    	<div id="chapterList" class="container_case">
+	    	<!--<img src="images/eq/eq_caseimg.png" width="710" />-->
+            <table class="table table-hover text-center">
+                <tr style="height: 20px"></tr>
+                <tr>
+                    <th width="10%" style="color: salmon">序号给程序猿用呢</th>
+                    <th width="20%" style="color: salmon">章节名称</th>
+                    <th width="10%" style="color: salmon">点这里查看哟</th>
+                </tr>
+                <tbody name="list" id="chapterList">
+                </tbody>
+            </table>
         </div>
     </div>
     
     <!--右侧信息-->
     <div class="f_right case_right">
     	<!--小图-->
-    	<div class="case_small cf b_30">
-        	<img src="images/eq/case_xiao.png" width="240" />
-        </div>
-        
+    	<!--<div class="case_small cf b_30">-->
+        	<!--<img src="images/eq/case_xiao.png" width="240" />-->
+        <!--</div>-->
+
         <div class="cell_wrap_call js_fixed">
             <!--案例信息-->
-            <div class="cell_wrap b_30">
+            <div class="cell_wrap b_30" style="visibility: hidden">
                 <div class="cell_wrap_b">
                     <div class="cell_wrap_container">
                         <h1 class="case_title">东方风行</h1>
@@ -101,18 +110,18 @@
                 </div>
                 <div class="after"></div>
             </div>
-            
+
             <!--合作信息-->
             <div class="cell_wrap">
                 <div class="cell_wrap_b">
                     <div class="cell_wrap_container">
-                        <h1 class="case_title">合作联系</h1>
-                        <p class="case_intro"><span>邮箱：</span>shiyico@qq.com</p>
-                        <p class="case_intro"><span>电话：</span>13264729940 400-123-1234</p>
-                        <p class="case_intro"><span>介绍：</span>湖北省武汉市汉阳区钟家村汉商大厦1712</p>
+                        <h1 class="case_title">网站问题</h1>
+                        <p class="case_intro"><span>打赏：</span>扫描网页上的微信收款码直接打赏腻腻，给腻腻鼓励，不要下次一定哦，哈哈哈！</p>
+                        <p class="case_intro"><span>程序猿QQ：</span>1767080279</p>
+                        <p class="case_intro"><span>聊一聊：</span>程序员小弟弟很菜，小可爱们可能会遇到bug，可以反馈给老弟哈！</p>
                         <div class="wrap_qq">
-                            <a class="qqzaixian" href="#this">在线客服</a>
-                            <a class="qqzaixian" href="#this">在线客服</a>
+                            <!--<a class="qqzaixian" href="#this">在线客服</a>-->
+                            <!--<a class="qqzaixian" href="#this">在线客服</a>-->
                         </div>
                     </div>
                 </div>
@@ -126,14 +135,14 @@
 <!--联系信息-->
 <div class="container container_1000 m_center b_70">
 	<div class="call_info m_center">
-    	<div class="phone b_30">
-        	<p>合作：027-84761733</p>
-			<p>客服：400-0879-875</p>
-        </div>
-        <div class="wrap_qq  b_30">
-        	<a href="#this" class="qqzaixian">在线客服</a>
-            <a href="#this" class="qqzaixian">在线客服</a>
-        </div>
+    	<!--<div class="phone b_30">-->
+        	<!--<p>合作：027-84761733</p>-->
+			<!--<p>客服：400-0879-875</p>-->
+        <!--</div>-->
+        <!--<div class="wrap_qq  b_30">-->
+        	<!--<a href="#this" class="qqzaixian">在线客服</a>-->
+            <!--<a href="#this" class="qqzaixian">在线客服</a>-->
+        <!--</div>-->
         <div class="erweima cf">
         	<div class="f_left">
             	<span class="erweima_img">
@@ -152,39 +161,91 @@
 </div>
 
 <div class="footer">
-	京ICP备11017824号-4 / 京ICP证130164号 北京市公安局朝阳分局备案编号:110105000501 Copyright © 2006-2013 
+    玛雅腻腻的个人小站 Copyright © 2021
 </div>
 
 
 <!--上一个案例-->
-<div class="cell_wrap next_case" id="js_lastcase">
-    <div class="cell_wrap_b">
-        <div class="cell_wrap_container">
-            <span class="case_img">
-                <img src="images/eq/case.png">
-            </span>
-        </div>
-        <div class="cf case_txt">
-            <span class="f_left case_name">上一个案例</span>
-            <span class="f_right">官方网站</span>
-        </div>
-    </div>
-</div>
+<!--<div class="cell_wrap next_case" id="js_lastcase">-->
+    <!--<div class="cell_wrap_b">-->
+        <!--<div class="cell_wrap_container">-->
+            <!--<span class="case_img">-->
+                <!--<img src="images/eq/case.png">-->
+            <!--</span>-->
+        <!--</div>-->
+        <!--<div class="cf case_txt">-->
+            <!--<span class="f_left case_name">上一个案例</span>-->
+            <!--<span class="f_right">官方网站</span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 
-<!--下一个案例-->
-<div class="cell_wrap next_case" id="js_nextcase">
-    <div class="cell_wrap_b">
-        <div class="cell_wrap_container">
-            <span class="case_img">
-                <img src="images/eq/case.png">
-            </span>
-        </div>
-        <div class="cf case_txt">
-            <span class="f_left case_name">下一个案例</span>
-            <span class="f_right">官方网站</span>
-        </div>
-    </div>
-</div>
+<!--&lt;!&ndash;下一个案例&ndash;&gt;-->
+<!--<div class="cell_wrap next_case" id="js_nextcase">-->
+    <!--<div class="cell_wrap_b">-->
+        <!--<div class="cell_wrap_container">-->
+            <!--<span class="case_img">-->
+                <!--<img src="images/eq/case.png">-->
+            <!--</span>-->
+        <!--</div>-->
+        <!--<div class="cf case_txt">-->
+            <!--<span class="f_left case_name">下一个案例</span>-->
+            <!--<span class="f_right">官方网站</span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<script src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    var currentPage=1;
+    var path = "http://127.0.0.1:8080";
+    var url = location.search; //获取url中"?"符后的字串
+    var bookId = url.substr(1).split("=")[1];
+    function getInfo() {
+        $.get(
+            path+"/book/selectBookById",
+            {"id":bookId},
+            function (data) {
+                if(data.code == 200){
+                    var info = data.data;
+                    setBookInfo(info);
+                    setChapterInfo(bookId);
+                }
+            }
+        );
+    }
 
+    //渲染书籍的数据
+    function setBookInfo(info) {
+        $("#bookName").text(info.bookName);
+    }
+
+    //渲染该书籍的章节 chapter中的 test == bookId
+    function setChapterInfo(bookId) {
+            var id = parseInt(bookId);
+            // $("#tt").empty();
+            $.get(
+                path+"/chapter/selectByBookId",
+                {"test":id},
+                function (data) {
+                        ad(data.data);
+                },"json");
+    }
+
+    // 渲染列表
+    function ad(data) {
+        $.each(data,function(i,obj){
+            $("#chapterList").append(
+                '<tr>'+
+                '<td width="5%" style="font-size: 15px;color: #535353">'+obj.id+'</td>'+
+                '<td width="20%" style="font-size: 18px;color: #535353">'+obj.chapterName+'</td>'+
+                    '<td width="10%" style="font-size: 15px;color: #535353">' +
+                '<a  href=# onclick=chapterDetail(' +data[i].id + ')>查看</a>'+
+                '</td>' +
+                '</tr>'
+            );
+        });
+    }
+
+</script>
 </body>
 </html>

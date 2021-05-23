@@ -72,12 +72,7 @@
 <!--案例展示-->
 <div class="container container_full m_center cf b_70">
 	<div id = "listBook" class="container container_1000 m_center b_30 align_center case_item">
-    	<a href="#this" class="focus">全部</a>
-      	<a href="#this">玛雅腻腻</a>
-      	<a href="#this">门户网站</a>
-     	<a href="#this">移动应用</a>
-      	<a href="#this">交互界面</a>
-     	<a href="#this">电商平台</a>
+    	<!--此处自动渲染书籍列表-->
     </div>
     
     
@@ -92,7 +87,7 @@
                     </a>
                 </div>
                 <div class="cf case_txt">
-                    <a href="#this" class="f_left">敬请期待...</a>
+                    <a href="#this" class="f_left">《恃宠而骄》</a>
                     <span class="f_right">玛雅腻腻</span>
                 </div>
             </div>
@@ -293,14 +288,13 @@
 <script src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
         var currentPage=1;
-        // var path = "/" + location.pathname.split("/")[1];
         var path = "http://127.0.0.1:8080";
         function listBooks() {
             $.get(
                 path+"/book/selectAllBook",
                 {"currentPage":currentPage},
                 function (data) {
-                    if(data.data.code == 200){
+                    if(data.code == "200"){
                         ad(data.data);
                     }else{
                       console.log("查询书籍错误！");
@@ -308,16 +302,16 @@
                 }
             );
         }
-
+        //渲染元素
         function ad(data) {
-            $.each(data,function(i,obj){
-                $("#listBook").append(
-                    '<a  href="javascript:void(0)" onclick="deleteBook('+obj.id +')">'
-                    + obj.bookName +
-                    '</a>'
-                );
-
-            });
+            var str = "";
+            for (var i = 0; i <data.length ; i++) {
+                str = str + "<a  href=# onclick=caseDetail(" +data[i].id + ")>" + data[i].bookName + "</a>";
+            }
+            $("#listBook").append(str);
+        }
+        function caseDetail(bookId) {
+            window.location.href = path + "/forward/case-detail.html?bookId=" + bookId;
         }
 
     </script>
