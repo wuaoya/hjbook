@@ -232,13 +232,9 @@
     }
 
     //
-    function chapterDetail(detailId) {
-            var detail = parseInt(detailId);
-            $.get(
-                path + "",
-                {},function (data) {
-
-                },"json");
+    function chapterDetail(chapterId) {
+        var detail = parseInt(chapterId);
+        window.location.href = path + "/forward/chapter-detail.html?chapterId=" + detail;
     }
 
     // 渲染列表

@@ -23,7 +23,7 @@
 <script type="text/javascript" src="js/sevice.js"></script>
 </head>
 
-<body>
+<body onload="getChapterInfo()">
 
 <div class="container container_nav cf">
 	<a href="index.html" class="logo">
@@ -68,6 +68,7 @@
 <!--服务内容标题-->
 <div class="container  container_full title_coloumn">
 	<span id="chapterId" class="cn"></span>
+	<span id="chapterName" class="cn"></span>
     <div class="title_coloumn_line"><img src="images/title_tip.gif" width="20" height="31" class="title_img" /></div>
 </div>
 
@@ -117,6 +118,35 @@
 </div>
 
 <script src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+
+    var path = "http://127.0.0.1:8080";
+
+    //获取章节信息
+    function getChapterInfo() {
+
+        var url = location.search; //获取url中"?"符后的字串
+        var editChapterId = url.substr(1).split("=")[1];
+        $.get(
+            path+"/chapter/selectById",
+            {"chapterId":editChapterId},
+            function (data) {
+                if(data.code == 200){
+                    var info = data.data;
+                    editChapter(info);
+                }
+            }
+        );
+    }
+
+    //渲染章节信息
+    function editChapter(info) {
+            $('#chapterName').html(info.chapterName);
+                $('#chapterContent').html(info.chapterContent);
+
+    }
+
+</script>
 <script>
 
 
